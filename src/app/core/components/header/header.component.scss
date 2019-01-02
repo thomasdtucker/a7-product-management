@@ -10,9 +10,29 @@
     > div {
       flex: 1;
       align-items: center;
-      color: white;
       font-size: 20px;
       font-weight: 100;
+      > a{
+        display:flex;
+        align-items: center;
+        text-decoration: none;
+        color: white;
+
+        > button{
+          width:24px;
+          height:24px;
+          margin-right:8px;
+          line-height:24px;
+          background:white;
+          color:black;
+          /deep/ .mat-button-wrapper{
+            line-height:24px;
+          }
+          mat-icon{
+            font-size:1.5em;
+          }
+        }
+      }
     }
     > button{
       color:white;

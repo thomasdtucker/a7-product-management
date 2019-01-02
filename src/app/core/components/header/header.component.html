@@ -1,5 +1,12 @@
 <header>
-  <div>{{pageTitle}}</div>
+  <div>
+    <a [routerLink]="'/'">
+      <button mat-icon-button>
+        <mat-icon aria-label="home">home</mat-icon>
+      </button>
+      <span>{{pageTitle}}</span>
+    </a>
+  </div>
   <button mat-icon-button [matMenuTriggerFor]="account" *ngIf="pageTitle">
     <mat-icon aria-label="account menu">account_circle</mat-icon>
     <mat-menu #account="matMenu">
