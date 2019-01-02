@@ -1,0 +1,58 @@
+@import 'vars';
+:host {
+  display: flex;
+  flex: 1;
+  padding: 40px;
+  > mat-card {
+    flex:1;
+    padding: 0;
+    @include mat-elevation(1);
+    > mat-card-header {
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
+      background: mat-color($primary, 500);
+      color: mat-contrast($primary, 500);
+      text-transform: capitalize;
+      > span {
+        display:block;
+        font-size: 1.425em;
+        font-weight: 100;
+        padding: 16px;
+      }
+      /deep/.mat-card-header-text{
+        display:none;
+      }
+      > a{
+        font-size:.8em;
+        padding: 0 24px;
+        > button {
+          background: rgba(255,255,255,.2);
+          color: white;
+        }
+      }
+    }
+    > mat-card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      > section {
+        flex: 1;
+        display: flex;
+
+        &:first-child{
+          justify-content: flex-end;
+        }
+        &:not(:last-child) {
+          padding-bottom: 16px;
+        }
+        > mat-form-field {
+          flex: 1 1 50%;
+          + mat-form-field {
+            padding-left: 16px;
+          }
+        }
+      }
+    }
+  }
+}

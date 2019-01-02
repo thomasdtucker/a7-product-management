@@ -1,0 +1,11 @@
+<section>
+  {{product?.Name}}
+</section>
+<aside>
+  <a [routerLink]="'/products/edit/'+product?.ProductId">
+    <button mat-flat-button color="primary">edit</button>
+  </a>
+  <!--<button mat-icon-button (click)="delete()">-->
+    <!--<mat-icon aria-label="delete product">close</mat-icon>-->
+  <!--</button>-->
+</aside>

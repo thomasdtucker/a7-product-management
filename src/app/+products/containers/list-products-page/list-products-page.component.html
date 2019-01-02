@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <span>product list</span>
+    <a [routerLink]="'/products/add'">
+      <button mat-icon-button>
+        <mat-icon aria-label="delete product">add</mat-icon>
+      </button>
+    </a>
+  </mat-card-header>
+  <mat-card-content>
+    <app-product *ngFor="let product of products$ | async" [product]="product">
+    </app-product>
+  </mat-card-content>
+</mat-card>
