@@ -18,7 +18,7 @@ import { Category, Product } from '../../models';
 @Component({
   selector: 'app-edit-product-page',
   templateUrl: './edit-product-page.component.html',
-  styleUrls: ['./edit-product-page.component.scss'],
+  styleUrls: ['../add-product-page/add-product-page.component.scss'],
 })
 export class EditProductPageComponent implements OnDestroy, OnInit {
   categories$: Observable<Category[]>;

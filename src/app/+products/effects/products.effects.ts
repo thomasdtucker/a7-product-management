@@ -1,35 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { select, Store } from '@ngrx/store';
 
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { catchError, flatMap, map, switchMap, tap } from 'rxjs/operators';
-
-import { getIdFromLocationHeader } from '#app/shared/utils';
 
 import * as CoreActions from '#app/core/actions/core.actions';
 import * as ProductActions from '../actions/product.actions';
+import * as fromProducts from '../reducers';
+
 import { ProductService } from '../services/product.service';
 
 import { Product } from '../models';
 
 @Injectable()
 export class ProductEffects {
+
   @Effect()
   createProduct$ = this.actions$.pipe(
     ofType<ProductActions.CreateProduct>(
       ProductActions.ProductActionTypes.CREATE_PRODUCT,
     ),
     map(action => action.payload.product),
-    switchMap((product: Product) =>
-      this.productService.addProduct(product).pipe(
-        map( res => res.json()),
+    switchMap((newProduct: Product) =>
+      this.productService.addProduct(newProduct).pipe(
         map(
-          p =>
+          product =>
             new ProductActions.CreateProductSuccess({
-              product: {
-                ...p,
-              },
+              product,
             }),
         ),
         catchError(error => {
@@ -130,6 +129,12 @@ export class ProductEffects {
     map(action => action.payload.id),
     flatMap((id: string) =>
       this.productService.getProduct(id).pipe(
+        map( product => ({
+            ...product,
+            CategoryIds: product.Categories.reduce(
+              (arr, cat) => arr.concat(cat.CategoryId), []),
+          }),
+        ),
         map(
           product =>
             new ProductActions.GetProductSuccess({
@@ -145,7 +150,7 @@ export class ProductEffects {
 
   @Effect()
   getProductError$ = this.actions$.pipe(
-    ofType<ProductActions.CreateProductError>(
+    ofType<ProductActions.GetProductError>(
       ProductActions.ProductActionTypes.GET_PRODUCT_ERROR,
     ),
     map(action => action.payload),
@@ -163,7 +168,7 @@ export class ProductEffects {
 
   @Effect()
   getProductSuccess$ = this.actions$.pipe(
-    ofType<ProductActions.CreateProductSuccess>(
+    ofType<ProductActions.GetProductSuccess>(
       ProductActions.ProductActionTypes.GET_PRODUCT_SUCCESS,
     ),
     map(
@@ -172,6 +177,26 @@ export class ProductEffects {
           action: 'OK',
           message: 'Product Loaded',
         }),
+    ),
+  );
+
+  @Effect()
+  getProductCategories$ = this.actions$.pipe(
+    ofType<ProductActions.GetProductCategories>(
+      ProductActions.ProductActionTypes.GET_PRODUCT_CATEGORIES,
+    ),
+    switchMap(() =>
+      this.productService.getProductCategories().pipe(
+        map(
+          categories =>
+            new ProductActions.GetProductCategoriesSuccess({
+              categories,
+            }),
+        ),
+        catchError(error => {
+          return of(new ProductActions.GetProductCategoriesError({ error }));
+        }),
+      ),
     ),
   );
 

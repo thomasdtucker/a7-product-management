@@ -39,6 +39,13 @@ export function reducer(
         },
       };
     }
+    case ProductAction.ProductActionTypes.GET_PRODUCT_CATEGORIES_SUCCESS: {
+      const { categories } = action.payload;
+      return {
+        ...state,
+        categories,
+      };
+    }
     default: {
       return state;
     }

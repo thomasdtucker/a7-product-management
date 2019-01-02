@@ -19,17 +19,17 @@ export class ProductService {
   constructor(private http: HttpClient, private store: Store<fromAuth.State>) {}
 
   addProduct = (product: Product) =>
-    this.http.post(`${this.API_AUTH_URL}admin/products`, product);
+    this.http.post(`${this.API_AUTH_URL}products`, product);
 
   deleteProduct = (id: number) =>
-    this.http.delete(`${this.API_AUTH_URL}admin/products/${id}`);
+    this.http.delete(`${this.API_AUTH_URL}products/${id}`);
 
   getProduct = (id: string) =>
-    this.http.get(`${this.API_AUTH_URL}admin/products/${id}`);
+    this.http.get(`${this.API_AUTH_URL}products/${id}`);
 
-  getProducts = () =>
-    this.http.get(`${this.API_AUTH_URL}admin/products/`);
+  getProductCategories = () =>
+    this.http.get(`${this.API_AUTH_URL}categories`);
 
   updateProduct = (id: number, product: Product) =>
-    this.http.put(`${this.API_AUTH_URL}admin/products/${+id}`, product);
+    this.http.put(`${this.API_AUTH_URL}products/${+id}`, product);
 }

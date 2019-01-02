@@ -33,7 +33,7 @@
                     <mat-select name="CategoryIds" placeholder="categories" formControlName="CategoryIds"
                         required multiple>
                         <mat-option *ngFor="let category of categories$ | async" [value]="category.CategoryId">
-                            {{type.name}}
+                            {{category.Name}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="formState.controls.CategoryIds.errors?.required">

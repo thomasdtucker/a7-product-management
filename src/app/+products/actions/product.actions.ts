@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Product } from '../models';
 
 export enum ProductActionTypes {
+  NAVIGATION = 'ROUTER_NAVIGATION',
   CREATE_PRODUCT = '[PRODUCT] Create Product',
   CREATE_PRODUCT_SUCCESS = '[PRODUCT] Create Product Success',
   CREATE_PRODUCT_ERROR = '[PRODUCT] Create Product Error',
@@ -17,6 +18,11 @@ export enum ProductActionTypes {
   UPDATE_PRODUCT = '[PRODUCT] Update Product',
   UPDATE_PRODUCT_SUCCESS = '[PRODUCT] Update Product Success',
   UPDATE_PRODUCT_ERROR = '[PRODUCT] Update Product Error',
+}
+export class Navigation implements Action {
+  readonly type = ProductActionTypes.NAVIGATION;
+
+  constructor(public payload: { routerState: any }) {}
 }
 
 export class CreateProduct implements Action {

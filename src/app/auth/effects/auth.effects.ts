@@ -11,7 +11,7 @@ import { environment } from '#env/environment';
 
 import * as AuthActions from '../actions/auth.actions';
 
-import * as PromotionActions from '#app/+products/actions/product.actions';
+import * as ProductActions from '#app/+products/actions/product.actions';
 import * as CoreActions from '#app/core/actions/core.actions';
 import { Credentials, User } from '../models/';
 import { AuthService } from '../services/auth.service';
@@ -46,15 +46,15 @@ export class AuthEffects {
     ),
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   loginSuccess$ = this.actions$.pipe(
     ofType<AuthActions.Login>(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
     map(action => action.payload),
     map((credentials: Credentials) => {
       localStorage.setItem('authToken', credentials.token);
     }),
+    map(() => new ProductActions.GetProductCategories()),
   );
-
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
