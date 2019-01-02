@@ -1,0 +1,61 @@
+version: 2
+jobs:
+  build-deploy:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.8.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: sudo apt-get install python-pip groff less python-dev python3 python3-pip
+      - run: sudo pip install -r .circleci/requirements.txt
+      - run:
+          name: Install manage-buckets and add to PATH
+          command: |
+              sudo pip3 install manage-buckets==0.3.3 --extra-index-url https://pypi.fury.io/$GEMFURY_TOKEN/silvercar/
+              echo 'export PATH="$PATH:~/.local/bin"' >> $BASH_ENV
+              source $BASH_ENV
+      - run: sudo npm i -g @angular/cli@6.1.3
+      - run: yarn
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn test
+      - deploy:
+          name: Deploy to CloudFront
+          command: |
+            .circleci/deploy.sh $CIRCLE_BRANCH $CIRCLE_BUILD_NUM
+
+
+  cleanup:
+    docker:
+      - image: circleci/node:10.8.0
+    steps:
+      - checkout
+      - run: sudo apt-get install python-pip python-dev python3 python3-pip
+      - run: sudo pip install -r .circleci/requirements.txt
+      - run: sudo pip3 install manage-buckets==0.3.4 --extra-index-url https://pypi.fury.io/$GEMFURY_TOKEN/silvercar/
+      - run:
+          name: Cleanup
+          command: |
+              branches=$(git ls-remote --heads | awk '{print $2}' | sed -e "s/refs\/heads\///g" | paste -sd " ")
+              manage-buckets prune-branch-buckets --pattern "rac-admin-ci-(.*).rac-tst.com" --branches "$branches" --dns-provider "route53" --tld "rac-tst.com" --cloudfront-template ".circleci/cloudfront_template.qa.json"
+
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build-deploy
+      - cleanup

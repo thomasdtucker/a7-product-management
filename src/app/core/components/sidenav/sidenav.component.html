@@ -1,0 +1,33 @@
+<div [ngClass]="{'open':showSidenav}">
+    <header>
+        <div>{{(user$ | async)?.first_name}} {{(user$ | async)?.last_name}}</div>
+        <button mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </header>
+    <section>
+        <div *ngFor="let nav of navigation$ | async">
+            <ng-container *ngIf="nav?.routerLink">
+                <a routerLink="{{nav?.routerLink}}" (click)="close()">
+                <button mat-flat-button>
+                  {{nav?.title}}
+                </button>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="nav?.path">
+                <a href="{{nav?.path}}" target="{{nav?.target}}" (click)="close()">
+                <button mat-flat-button>
+                  {{nav?.title}}
+                </button>
+              </a>
+            </ng-container>
+        </div>
+        <div *ngIf="(user$ | async)?.first_name">
+            <a routerLink="/logout" (click)="close()">
+            <button mat-flat-button>
+              Log Out
+            </button>
+          </a>
+        </div>
+    </section>
+</div>

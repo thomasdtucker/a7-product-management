@@ -1,0 +1,19 @@
+@import 'vars';
+:host {
+  > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height:40px;
+    background: black;
+    > div {
+      flex: 1;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      font-weight: 100;
+
+    }
+  }
+}

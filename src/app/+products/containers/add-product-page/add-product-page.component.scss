@@ -1,0 +1,40 @@
+@import 'vars';
+:host {
+  display: flex;
+  flex: 1;
+  padding: 40px;
+  > form {
+    flex: 1;
+    > mat-card {
+      padding: 0;
+      @include mat-elevation(1);
+      > mat-card-header {
+        font-size: 1.425em;
+        font-weight: 100;
+        padding: 16px;
+        background: mat-color($primary, 500);
+        color: mat-contrast($primary, 500);
+        text-transform: capitalize;
+      }
+      > mat-card-content {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        > section {
+          flex: 1;
+          display: flex;
+
+          &:not(:last-child) {
+            padding-bottom: 16px;
+          }
+          > mat-form-field {
+            flex: 1 1 50%;
+            + mat-form-field {
+              padding-left: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+:host {
+  > section {
+    display: flex;
+    flex-flow: column;
+    > section {
+      padding-bottom: 24px;
+    }
+  }
+}

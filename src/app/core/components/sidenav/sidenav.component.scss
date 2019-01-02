@@ -1,0 +1,53 @@
+@import '~@material/animation/variables';
+@import 'vars';
+:host {
+  display:none;
+  flex: 0 0 240px;
+  background: mat-color($primary, 300);
+  color: mat-contrast($primary, 300);
+  transition: left 100ms $mdc-animation-standard-curve-timing-function;
+  > div {
+    display: flex;
+    flex-flow:column;
+    &.open {
+      flex: 0 0 320px;
+    }
+
+    > header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      > button {
+        color: white;
+      }
+      > div {
+        flex: 1;
+        font-size: 16px;
+        font-weight: 300;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    > section {
+      padding-top: 16px;
+      > div {
+        > a {
+          text-decoration: none;
+          > button {
+            background: none;
+            font-size: 16px;
+            font-weight: 300;
+            text-align: left;
+            width: 100%;
+            > span {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+}

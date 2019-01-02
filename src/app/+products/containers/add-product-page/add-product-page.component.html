@@ -1,0 +1,49 @@
+<form [formGroup]="formState" (submit)="submit()">
+    <mat-card>
+        <mat-card-header>
+            create product
+        </mat-card-header>
+        <mat-card-content>
+            <section>
+                <mat-form-field>
+                    <input matInput placeholder="name" formControlName="Name" required>
+                    <mat-error *ngIf="formState.controls.Name.errors?.required">
+                        A name is required
+                    </mat-error>
+                </mat-form-field>
+            </section>
+            <section>
+                <mat-form-field>
+                    <input matInput placeholder="description" formControlName="Description" required>
+                    <mat-error *ngIf="formState.controls.Description.errors?.required">
+                        A description is required
+                    </mat-error>
+                </mat-form-field>
+            </section>
+            <section>
+                <mat-form-field>
+                    <input matInput placeholder="url" formControlName="Url" required>
+                    <mat-error *ngIf="formState.controls.Url.errors?.required">
+                        A url is required
+                    </mat-error>
+                </mat-form-field>
+            </section>
+            <section>
+                <mat-form-field>
+                    <mat-select name="CategoryIds" placeholder="categories" formControlName="CategoryIds"
+                        required multiple>
+                        <mat-option *ngFor="let category of categories$ | async" [value]="category.CategoryId">
+                            {{type.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formState.controls.CategoryIds.errors?.required">
+                        A category is required
+                    </mat-error>
+                </mat-form-field>
+            </section>
+            <section>
+                <button mat-flat-button color="primary" type="submit" [disabled]="!formState.valid">create</button>
+            </section>
+        </mat-card-content>
+    </mat-card>
+</form>

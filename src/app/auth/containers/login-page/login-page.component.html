@@ -1,0 +1,7 @@
+<form #loginForm="ngForm" (ngSubmit)="submit(loginForm)">
+    <h2>enter authorization token</h2>
+    <mat-form-field>
+        <input matInput name="token" placeholder="token" value="" type="password" ngModel>
+    </mat-form-field>
+    <button mat-flat-button color="primary">login</button>
+</form>
