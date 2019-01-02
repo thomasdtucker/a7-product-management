@@ -1,4 +1,4 @@
-# RAC Web Admin
+# a7-product-management
 
 ## Dependencies
 The only global dependencies necessary for this project are [Node](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/en/)

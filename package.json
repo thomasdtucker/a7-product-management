@@ -1,6 +1,6 @@
 {
-  "name": "rac-web-admin",
-  "version": "0.0.2",
+  "name": "a7-product-management",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
