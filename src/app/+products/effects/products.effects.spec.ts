@@ -12,6 +12,8 @@ import { ProductEffects } from './products.effects';
 
 import * as AuthActions from '#app/auth/actions/auth.actions';
 import { Credentials } from '#app/auth/models';
+import {environment} from "#env/environment";
+
 import { Product } from '../models';
 
 describe('ProductEffects', () => {
@@ -19,6 +21,8 @@ describe('ProductEffects', () => {
   let productService: any;
   let actions$: Observable<any>;
   let routerService: any;
+  let API_AUTH_URL = environment.api_v1;
+
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -68,9 +72,7 @@ describe('ProductEffects', () => {
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', {
         a: {
-          headers: {
-            get: () => 'https://api.rac-tst.com/admin/products/5',
-          },
+          ...product,
         },
       });
       const expected = cold('--b', { b: completion });

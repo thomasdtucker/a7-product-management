@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {
-  MAT_LABEL_GLOBAL_OPTIONS,
   MatNativeDateModule,
 } from '@angular/material/core';
 
@@ -23,10 +22,6 @@ import {
   MatToolbarModule,
 } from '@angular/material';
 
-import { CustomErrorStateMatcherDirective } from './error-state-matcher';
-import { MatListOptionFixDirective } from './mat-list-option-fix';
-import { NgrxMatSelectViewAdapter } from './mat-select-view-adapter';
-
 @NgModule({
   imports: [
     MatButtonModule,
@@ -47,11 +42,6 @@ import { NgrxMatSelectViewAdapter } from './mat-select-view-adapter';
     MatTabsModule,
     MatToolbarModule,
   ],
-  declarations: [
-    NgrxMatSelectViewAdapter,
-    CustomErrorStateMatcherDirective,
-    MatListOptionFixDirective,
-  ],
   exports: [
     MatButtonModule,
     MatCardModule,
@@ -70,9 +60,6 @@ import { NgrxMatSelectViewAdapter } from './mat-select-view-adapter';
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
-    NgrxMatSelectViewAdapter,
-    CustomErrorStateMatcherDirective,
-    MatListOptionFixDirective,
   ],
   providers: [],
 })

@@ -24,7 +24,8 @@ export class AuthEffects {
     map(action => action.payload.credentials),
     flatMap((credentials: Credentials) =>
       this.authService.login(credentials).pipe(
-        map(() => new AuthActions.LoginSuccess(credentials)),
+        map(() => credentials.token),
+        map((token) => new AuthActions.LoginSuccess({ token })),
         catchError(error => of(new AuthActions.LoginError({ error }))),
       ),
     ),
@@ -48,10 +49,12 @@ export class AuthEffects {
 
   @Effect()
   loginSuccess$ = this.actions$.pipe(
-    ofType<AuthActions.Login>(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
+    ofType<AuthActions.LoginSuccess>(AuthActions.AuthActionTypes.LOGIN_SUCCESS),
     map(action => action.payload),
-    map((credentials: Credentials) => {
-      localStorage.setItem('authToken', credentials.token);
+    // tslint:disable-next-line
+    map((payload) => payload.token),
+    map((token) => {
+      localStorage.setItem('authToken', token);
     }),
     map(() => new ProductActions.GetProductCategories()),
   );
@@ -68,7 +71,7 @@ export class AuthEffects {
   logout$ = this.actions$.pipe(
     ofType<AuthActions.Logout>(AuthActions.AuthActionTypes.LOGOUT),
     map(() => {
-      Cookie.delete('auth_token', '/', environment.root_url);
+      localStorage.removeItem('authToken');
     }),
     map(() => this.router.navigate(['/login'])),
   );

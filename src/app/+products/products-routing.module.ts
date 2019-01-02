@@ -5,11 +5,12 @@ import { AuthGuard } from '#app/auth/services/auth-guard.service';
 
 import { AddProductPageComponent } from './containers/add-product-page/add-product-page.component';
 import { EditProductPageComponent } from './containers/edit-product-page/edit-product-page.component';
+import { ListProductsPageComponent } from './containers/list-products-page/list-products-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'add',
+    redirectTo: 'list',
     pathMatch: 'full',
   },
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditProductPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'list',
+    component: ListProductsPageComponent,
     canActivate: [AuthGuard],
   },
 ];

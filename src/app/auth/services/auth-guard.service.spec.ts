@@ -29,14 +29,10 @@ describe('Auth Guard', () => {
     guard = TestBed.get(AuthGuard);
   });
 
-  it('should return true if getUser succeeded', () => {
-    const user: User = new User({
-      id: 1,
-      email: 'test@test.com',
-      first_name: 'test',
-      last_name: 'test',
+  it('should return true if there is a token', () => {
+    const action = new AuthActions.LoginSuccess({
+      token: '123',
     });
-    const action = new AuthActions.GetUserSuccess(user);
     store.dispatch(action);
     const expected: any = cold('(a)', { a: true });
 

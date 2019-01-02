@@ -32,7 +32,7 @@ export class EditProductPageComponent implements OnDestroy, OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.categories$ = this.store.pipe(
-      select(fromProducts.selectCagegories),
+      select(fromProducts.selectCategories),
     );
     this.formState$ = store.pipe(
       select(fromProducts.selectFormEditProduct),
@@ -53,11 +53,13 @@ export class EditProductPageComponent implements OnDestroy, OnInit {
       .pipe(select(fromProducts.getRouteParameters))
       .subscribe(params => {
         const { id } = params;
-        this.store.dispatch(
-          new ProductActions.GetProduct({
-            id,
-          }),
-        );
+        if(id) {
+          this.store.dispatch(
+            new ProductActions.GetProduct({
+              id,
+            }),
+          );
+        }
       });
   }
 

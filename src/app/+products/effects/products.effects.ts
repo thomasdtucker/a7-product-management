@@ -129,10 +129,10 @@ export class ProductEffects {
     map(action => action.payload.id),
     flatMap((id: string) =>
       this.productService.getProduct(id).pipe(
-        map( product => ({
+        map( (product: Product) => ({
             ...product,
             CategoryIds: product.Categories.reduce(
-              (arr, cat) => arr.concat(cat.CategoryId), []),
+              (arr, cat) => arr.concat(cat.CategoryId), [])
           }),
         ),
         map(
@@ -199,6 +199,27 @@ export class ProductEffects {
       ),
     ),
   );
+
+  @Effect()
+  getProducts$ = this.actions$.pipe(
+    ofType<ProductActions.GetProducts>(
+      ProductActions.ProductActionTypes.GET_PRODUCTS,
+    ),
+    switchMap(() =>
+      this.productService.getProducts().pipe(
+        map(
+          (products: Product[]) =>
+            new ProductActions.GetProductsSuccess({
+              products,
+            }),
+        ),
+        catchError(error => {
+          return of(new ProductActions.GetProductsError({ error }));
+        }),
+      ),
+    ),
+  );
+
 
   @Effect()
   updateProduct$ = this.actions$.pipe(

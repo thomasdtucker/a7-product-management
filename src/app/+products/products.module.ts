@@ -16,6 +16,8 @@ import { ProductEffects } from './effects/products.effects';
 
 import { AddProductPageComponent } from './containers/add-product-page/add-product-page.component';
 import { EditProductPageComponent } from './containers/edit-product-page/edit-product-page.component';
+import { ListProductsPageComponent } from './containers/list-products-page/list-products-page.component';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import { EditProductPageComponent } from './containers/edit-product-page/edit-pr
   declarations: [
     AddProductPageComponent,
     EditProductPageComponent,
+    ListProductsPageComponent,
+    ProductComponent,
   ],
 })
 export class ProductsModule {}

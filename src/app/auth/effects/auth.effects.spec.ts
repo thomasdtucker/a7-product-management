@@ -47,11 +47,10 @@ describe('AuthEffects', () => {
 
   describe('login$', () => {
     it('should return an auth.LoginSuccess action, with authentication_token if login succeeds', () => {
-      const credentials: Credentials = { email: 'test', password: 'test' };
+      const credentials: Credentials = { token: 'test' };
       const action = new AuthActions.Login({ credentials });
       const completion = new AuthActions.LoginSuccess({
-        email: 'test',
-        password: 'test',
+        token: 'test',
       });
 
       actions$ = hot('-a---', { a: action });

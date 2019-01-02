@@ -11,6 +11,7 @@ export interface State {
     addProduct: Product;
     editProduct: Product;
   };
+  products: Product[],
 }
 
 export const initialState: State = {
@@ -19,6 +20,7 @@ export const initialState: State = {
     addProduct: new Product({}),
     editProduct: new Product({}),
   },
+  products: [],
 };
 
 export function reducer(
@@ -43,7 +45,14 @@ export function reducer(
       const { categories } = action.payload;
       return {
         ...state,
-        categories,
+        categories: [...categories],
+      };
+    }
+    case ProductAction.ProductActionTypes.GET_PRODUCTS_SUCCESS: {
+      const { products } = action.payload;
+      return {
+        ...state,
+        products: [...products],
       };
     }
     default: {
@@ -57,15 +66,21 @@ export const getCategories = (state: State) => state.categories;
 export const getFormAddProduct = (state: State) => state.forms.addProduct;
 export const getFormEditProduct = (state: State) =>
   state.forms.editProduct;
+export const getProducts = (state: State) => state.products;
 
 // feature selector
 export const getProductsState = createFeatureSelector<State>('products');
 
 // value selectors
-export const selectCagegories = createSelector(
+export const selectCategories = createSelector(
   getProductsState,
   getCategories,
 );
+export const selectProducts = createSelector(
+  getProductsState,
+  getProducts,
+);
+
 export const selectFormAddProduct = createSelector(
   getProductsState,
   getFormAddProduct,

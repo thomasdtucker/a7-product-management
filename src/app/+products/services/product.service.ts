@@ -6,8 +6,6 @@ import { environment } from '#env/environment';
 
 import * as fromAuth from '#app/auth/reducers';
 
-import * as fromProducts from '#app/+products/reducers';
-
 import { Product } from '../models';
 
 @Injectable({
@@ -26,6 +24,9 @@ export class ProductService {
 
   getProduct = (id: string) =>
     this.http.get(`${this.API_AUTH_URL}products/${id}`);
+
+  getProducts = () =>
+    this.http.get(`${this.API_AUTH_URL}products`);
 
   getProductCategories = () =>
     this.http.get(`${this.API_AUTH_URL}categories`);

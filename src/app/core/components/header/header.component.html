@@ -1,3 +1,10 @@
 <header>
-    <div>{{pageTitle}}</div>
+  <div>{{pageTitle}}</div>
+  <button mat-icon-button [matMenuTriggerFor]="account" *ngIf="pageTitle">
+    <mat-icon aria-label="account menu">account_circle</mat-icon>
+    <mat-menu #account="matMenu">
+      <button mat-menu-item [routerLink]="'/logout'">logout</button>
+    </mat-menu>
+
+  </button>
 </header>

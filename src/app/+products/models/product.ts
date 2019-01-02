@@ -1,5 +1,8 @@
+import { Category } from './';
+
 class IProduct {
   ProductId?: number;
+  Categories?: Category[];
   CategoryIds?: any[];
   Description?: string;
   Name?: string;

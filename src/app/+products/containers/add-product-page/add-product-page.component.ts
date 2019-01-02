@@ -25,7 +25,7 @@ export class AddProductPageComponent {
     private formBuilder: FormBuilder,
   ) {
     this.categories$ = this.store.pipe(
-      select(fromProducts.selectCagegories),
+      select(fromProducts.selectCategories),
     );
 
     this.formState = formBuilder.group({

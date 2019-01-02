@@ -15,6 +15,9 @@ export enum ProductActionTypes {
   GET_PRODUCT_CATEGORIES = '[PRODUCT] Get Product Categories',
   GET_PRODUCT_CATEGORIES_SUCCESS = '[PRODUCT] Get Product Categories Success',
   GET_PRODUCT_CATEGORIES_ERROR = '[PRODUCT] Get Product Categories Error',
+  GET_PRODUCTS = '[PRODUCT] Get Products',
+  GET_PRODUCTS_SUCCESS = '[PRODUCT] Get Products Success',
+  GET_PRODUCTS_ERROR = '[PRODUCT] Get Products Error',
   UPDATE_PRODUCT = '[PRODUCT] Update Product',
   UPDATE_PRODUCT_SUCCESS = '[PRODUCT] Update Product Success',
   UPDATE_PRODUCT_ERROR = '[PRODUCT] Update Product Error',
@@ -95,6 +98,22 @@ export class GetProductCategoriesError implements Action {
   constructor(public payload: { error: any }) {}
 }
 
+export class GetProducts implements Action {
+  readonly type = ProductActionTypes.GET_PRODUCTS;
+}
+
+export class GetProductsSuccess implements Action {
+  readonly type = ProductActionTypes.GET_PRODUCTS_SUCCESS;
+
+  constructor(public payload: { products: Product[] }) {}
+}
+
+export class GetProductsError implements Action {
+  readonly type = ProductActionTypes.GET_PRODUCTS_ERROR;
+
+  constructor(public payload: { error: any }) {}
+}
+
 export class UpdateProduct implements Action {
   readonly type = ProductActionTypes.UPDATE_PRODUCT;
 
@@ -126,6 +145,9 @@ export type ProductActions =
   | GetProductCategories
   | GetProductCategoriesSuccess
   | GetProductCategoriesError
+  | GetProducts
+  | GetProductsSuccess
+  | GetProductsError
   | UpdateProduct
   | UpdateProductSuccess
   | UpdateProductError;

@@ -1,17 +1,19 @@
-$sc-blue: (
+$custom-blue: (
   100: #d8eaf0,
   300: #42b2d9,
   400: #45abc7,
   500: #45abc7,
+  700: #4F8193,
   contrast: (
     100: $black-87-opacity,
     300: white,
     400: white,
     500: white,
+    700: white,
   ),
 );
 
-$sc-red: (
+$custom-red: (
   100: #c94d4f,
   500: #c94d4e,
   contrast: (
